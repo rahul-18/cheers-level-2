@@ -1,0 +1,40 @@
+<span class="back-btn" [routerLink]="['/cocktail-list']">Back</span><br />
+<div class="cocktail-box" *ngIf="cocktail">
+  <img [src]="cocktail.imageUrl" alt="cocktail" />
+  <div class="content">
+    <div class="name">
+      {{ cocktail.name }}
+      <span
+        class="icon-star"
+        id="star-{{ cocktail.id }}"
+        (click)="makeFavAndUnfav(cocktail.id)"
+        >★
+      </span>
+    </div>
+    <div class="categorised-detail">
+      <div class="cat-name">Type</div>
+      <span
+        class="type-bedge"
+        [ngStyle]="{
+          'background-color': cocktail.isAlcoholic ? '#6d95c7' : '#6dc76d'
+        }"
+        >{{ cocktail.isAlcoholic ? "Alcoholic" : "Non-Alcoholic" }}</span
+      >
+    </div>
+
+    <div class="categorised-detail">
+      <div class="cat-name">Ingredients</div>
+      <ul>
+        <ng-container
+          *ngFor="let ingredient of cocktail.ingredients; index as j"
+        >
+          <li>{{ ingredient }}</li>
+        </ng-container>
+      </ul>
+    </div>
+    <div class="categorised-detail">
+      <div class="cat-name">Instruction</div>
+      <div class="instruction">{{ cocktail.instructions }}</div>
+    </div>
+  </div>
+</div>

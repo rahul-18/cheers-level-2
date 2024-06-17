@@ -1,0 +1,51 @@
+<div class="filter-sec">
+  <div class="heading">Filter</div>
+  <label for="searched-text">Cocktail Name</label>
+  <input
+    class="input-css"
+    type="text"
+    name="searchedText"
+    id="searched-text"
+    [(ngModel)]="searchedText"
+  />
+</div>
+<div class="flex-row">
+  <ng-container
+    *ngFor="let cocktail of cocktails | filter : searchedText; index as i"
+  >
+    <div class="cocktail-box">
+      <div class="star">
+        <span
+          [ngClass]="cocktail.isFavorite ? 'active' : ''"
+          class="icon-star"
+          id="star-{{ cocktail.id }}"
+          (click)="makeFavAndUnfav(cocktail.id)"
+          >★
+        </span>
+      </div>
+      <img [src]="cocktail?.imageUrl" alt="cocktail" />
+      <div class="content">
+        <div class="name" [routerLink]="['/cocktail-detail/', cocktail?.id]">
+          {{ cocktail?.name }}
+        </div>
+
+        <span
+          class="type-bedge"
+          [ngStyle]="{
+            'background-color': cocktail?.isAlcoholic ? '#6d95c7' : '#6dc76d'
+          }"
+          >{{ cocktail?.isAlcoholic ? "Alcoholic" : "Non-Alcoholic" }}</span
+        ><br />
+        <ng-container
+          *ngFor="let ingredient of cocktail?.ingredients; index as j"
+        >
+          <span *ngIf="cocktail?.ingredients?.length" class="ingredient">{{
+            cocktail?.ingredients?.length! - 1 > j
+              ? ingredient + " | "
+              : ingredient
+          }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
